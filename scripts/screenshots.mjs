@@ -5,10 +5,13 @@ import { preview } from 'astro';
 import { existsSync } from 'node:fs';
 import { mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import astroConfig from '../astro.config.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const outDir = new URL('../docs/screenshots/', import.meta.url);
 const port = 4322; // not 4321, so a running dev server does not get in the way
+// The site is served under its base path (/helix-website/), as on GitHub Pages.
+const url = `http://localhost:${port}${(astroConfig.base ?? '/').replace(/\/+$/, '')}/`;
 
 // The two reference sizes of the design system. Mobile is captured at 2× so it stays sharp in the README.
 const desktop = { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 };
@@ -35,7 +38,7 @@ try {
   for (const shot of shots) {
     // Reduced motion: every element is in its final state, no entrance animation half-way through.
     const page = await browser.newPage({ ...shot.device, reducedMotion: 'reduce' });
-    await page.goto(`http://localhost:${port}/`, { waitUntil: 'networkidle' });
+    await page.goto(url, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     await page.locator('canvas[data-sunset].is-ready').waitFor();
     if (shot.scrollTo) {

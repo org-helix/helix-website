@@ -2,6 +2,7 @@
 import Button from '../components/Button.astro';
 import Base from '../layouts/Base.astro';
 import { site } from '../content/site';
+import { withBase } from '../lib/url';
 ---
 
 <Base title={`Page not found — ${site.name}`}>
@@ -10,7 +11,7 @@ import { site } from '../content/site';
       <p class="ds-eyebrow">Error 404</p>
       <h1 class="ds-display-m">This page does not exist.</h1>
       <p class="ds-lead">The link may be out of date, or the page may have moved.</p>
-      <Button href="/" variant="primary" size="l" class="back">
+      <Button href={withBase('')} variant="primary" size="l" class="back">
         Back to the home page
       </Button>
     </div>

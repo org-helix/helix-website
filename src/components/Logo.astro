@@ -1,9 +1,10 @@
 ---
 /* Dusk: extrapolé — Helix mark: two pixel-aligned strands crossing (28×20, same box as the Dusk mark). */
 import { site } from '../content/site';
+import { withBase } from '../lib/url';
 ---
 
-<a class="logo" href="/" aria-label={`${site.name} — home`}>
+<a class="logo" href={withBase('')} aria-label={`${site.name} — home`}>
   <svg width="28" height="20" viewBox="0 0 28 20" aria-hidden="true">
     <path class="strand-b" d="M0 14h8v4H0zm8-4h4v4H8zm8-4h4v4h-4zm4-4h8v4h-8z"></path>
     <path class="strand-a" d="M0 2h8v4H0zm8 4h4v4H8zm4 2h4v4h-4zm4 2h4v4h-4zm4 4h8v4h-8z"></path>

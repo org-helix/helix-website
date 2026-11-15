@@ -1,7 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
+import astroConfig from './astro.config.mjs';
+import { withBase } from './src/lib/url';
 
-const PORT = 4321;
+// Not 4321: a dev server left running there must never be tested in place of the build.
+const PORT = 4323;
 const isCI = Boolean(process.env['CI']);
+// The site is served under its base path (/helix-website/), exactly as on GitHub Pages.
+// Tests navigate with relative URLs ('./', './404') so they follow it.
+const BASE_URL = `http://localhost:${PORT}${withBase('', astroConfig.base ?? '/')}`;
 
 // End-to-end tests run against the production build (`npm run build` first).
 export default defineConfig({
@@ -11,7 +17,7 @@ export default defineConfig({
   retries: isCI ? 1 : 0,
   reporter: isCI ? [['github'], ['html', { open: 'never' }]] : 'list',
   use: {
-    baseURL: `http://localhost:${PORT}`,
+    baseURL: BASE_URL,
     trace: 'on-first-retry',
   },
   projects: [
@@ -27,7 +33,8 @@ export default defineConfig({
   ],
   webServer: {
     command: `npm run preview -- --port ${PORT}`,
-    url: `http://localhost:${PORT}`,
-    reuseExistingServer: !isCI,
+    url: BASE_URL,
+    // Always a fresh preview of dist/: if the port is taken, fail loudly instead of testing something else.
+    reuseExistingServer: false,
   },
 });

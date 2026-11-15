@@ -3,7 +3,7 @@ import { nav } from '../../src/content/site';
 
 test.beforeEach(async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/');
+  await page.goto('./');
 });
 
 test.describe('desktop navigation', () => {

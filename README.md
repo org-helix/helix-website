@@ -4,6 +4,8 @@ Website for [Helix](https://github.com/org-helix): public-good software, free, o
 
 A static site built with [Astro](https://astro.build) and TypeScript. It ships HTML, CSS and two small scripts, with self-hosted fonts: no cookies, no analytics, no third-party requests.
 
+**Live site: <https://org-helix.github.io/helix-website/>**
+
 ![Helix home page on desktop: the headline "Software for those tech leaves behind." beside a pixel-art sunset](docs/screenshots/desktop.png)
 
 <p align="center">
@@ -26,7 +28,7 @@ Requires Node 22.23.4 or newer (CI uses the version in `.nvmrc`).
 | Command               | What it does                                                     |
 | --------------------- | ---------------------------------------------------------------- |
 | `npm install`         | Install dependencies                                             |
-| `npm run dev`         | Start the dev server on <http://localhost:4321>                  |
+| `npm run dev`         | Start the dev server on <http://localhost:4321/helix-website/>   |
 | `npm run build`       | Build the static site into `dist/`                               |
 | `npm run preview`     | Serve the built site locally                                     |
 | `npm run check`       | Type-check `.astro` and `.ts` files                              |
@@ -38,6 +40,12 @@ Requires Node 22.23.4 or newer (CI uses the version in `.nvmrc`).
 | `npm run screenshots` | Retake the README screenshots from the build                     |
 
 Before the first `npm run test:e2e` or `npm run screenshots`, install the browser once: `npx playwright install chromium`.
+
+## Deployment
+
+Every push to `main` runs the checks in `.github/workflows/ci.yml`. When they all pass, the same build is published to GitHub Pages. Pull requests run the checks but never deploy.
+
+The site is served under `/helix-website/`, set as `base` in `astro.config.mjs`. Internal links must go through `withBase()` from `src/lib/url.ts`; an end-to-end test fails if a link or asset escapes the base path. To move to a custom domain, set `site` to the domain and `base` to `'/'`.
 
 ## Where things live
 
