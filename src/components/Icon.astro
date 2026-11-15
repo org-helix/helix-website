@@ -1,0 +1,24 @@
+---
+import { Accessibility, FolderGit2, HardDrive, MessageCircle, Users, WifiOff } from '@lucide/astro';
+import type { IconName } from '../content/site';
+
+interface Props {
+  name: IconName;
+  /** 16 inline, 20 in card and feature titles (Dusk icon scale). */
+  size?: 16 | 20;
+}
+
+const icons = {
+  accessibility: Accessibility,
+  'hard-drive': HardDrive,
+  'wifi-off': WifiOff,
+  'folder-git': FolderGit2,
+  'message-circle': MessageCircle,
+  users: Users,
+} satisfies Record<IconName, unknown>;
+
+const { name, size = 20 } = Astro.props;
+const Glyph = icons[name];
+---
+
+<Glyph size={size} stroke-width={2} aria-hidden="true" />

@@ -1,0 +1,45 @@
+---
+/* Dusk feature grid: icon 20 + heading 18/500, then copy 15 px — no card around. */
+import { focus } from '../content/site';
+import Icon from './Icon.astro';
+import SectionIntro from './SectionIntro.astro';
+---
+
+<section class="ds-section" id="focus">
+  <div class="ds-container">
+    <SectionIntro eyebrow={focus.eyebrow} title={focus.title} copy={focus.copy} />
+    <ul class="ds-grid ds-grid--3 features">
+      {focus.items.map((item) => (
+        <li>
+          <h3 class="ds-heading">
+            <span class="icon">
+              <Icon name={item.icon} />
+            </span>
+            {item.title}
+          </h3>
+          <p class="ds-copy">{item.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .features {
+    gap: var(--space-10);
+  }
+
+  .icon {
+    color: var(--accent-primary);
+  }
+
+  .ds-copy {
+    margin-top: var(--space-4);
+  }
+
+  @media (min-width: 48rem) {
+    .features {
+      gap: var(--space-12);
+    }
+  }
+</style>

@@ -1,0 +1,78 @@
+---
+/* Dusk numbered list (.ds-row): index · title + description · aside, separated by hairlines. */
+import { audience } from '../content/site';
+import SectionIntro from './SectionIntro.astro';
+
+const index = (i: number) => String(i + 1).padStart(2, '0');
+---
+
+<section class="ds-section" id="audience">
+  <div class="ds-container">
+    <SectionIntro eyebrow={audience.eyebrow} title={audience.title} copy={audience.copy} />
+    <ol>
+      {audience.items.map((item, i) => (
+        <li class="row">
+          <span class="index" aria-hidden="true">
+            {index(i)}
+          </span>
+          <div>
+            <h3>{item.title}</h3>
+            <p class="desc">{item.text}</p>
+          </div>
+          <span class="aside">{item.aside}</span>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .row {
+    display: grid;
+    grid-template-columns: var(--space-8) minmax(0, 1fr);
+    gap: var(--space-2) var(--space-4);
+    padding-block: var(--space-6);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+
+  .row:first-child {
+    border-top: 1px solid var(--border-hairline);
+  }
+
+  .index {
+    padding-top: var(--space-1);
+    font-size: var(--font-size-caption);
+    font-variant-numeric: tabular-nums;
+    color: var(--text-subtle);
+  }
+
+  h3 {
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-heading);
+  }
+
+  .desc {
+    max-width: 48rem;
+    margin-top: var(--space-1-5);
+    font-size: var(--font-size-body-s);
+    line-height: var(--font-line-height-relaxed);
+    color: var(--text-muted);
+  }
+
+  .aside {
+    grid-column: 2;
+    font-size: var(--font-size-label);
+    color: var(--text-subtle);
+  }
+
+  @media (min-width: 48rem) {
+    .row {
+      grid-template-columns: var(--space-8) minmax(0, 1fr) auto;
+    }
+
+    .aside {
+      grid-column: auto;
+    }
+  }
+</style>

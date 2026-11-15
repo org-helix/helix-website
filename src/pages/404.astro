@@ -1,0 +1,37 @@
+---
+import Button from '../components/Button.astro';
+import Base from '../layouts/Base.astro';
+import { site } from '../content/site';
+---
+
+<Base title={`Page not found — ${site.name}`}>
+  <section class="not-found">
+    <div class="ds-container">
+      <p class="ds-eyebrow">Error 404</p>
+      <h1 class="ds-display-m">This page does not exist.</h1>
+      <p class="ds-lead">The link may be out of date, or the page may have moved.</p>
+      <Button href="/" variant="primary" size="l" class="back">
+        Back to the home page
+      </Button>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .not-found {
+    padding-top: calc(var(--size-header) + var(--space-16));
+    padding-bottom: var(--section-pb-last);
+  }
+
+  h1 {
+    margin-top: var(--space-5);
+  }
+
+  .ds-lead {
+    margin-top: var(--space-4);
+  }
+
+  .not-found :global(.back) {
+    margin-top: var(--space-8);
+  }
+</style>

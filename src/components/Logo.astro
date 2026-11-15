@@ -1,0 +1,37 @@
+---
+/* Dusk: extrapolé — Helix mark: two pixel-aligned strands crossing (28×20, same box as the Dusk mark). */
+import { site } from '../content/site';
+---
+
+<a class="logo" href="/" aria-label={`${site.name} — home`}>
+  <svg width="28" height="20" viewBox="0 0 28 20" aria-hidden="true">
+    <path class="strand-b" d="M0 14h8v4H0zm8-4h4v4H8zm8-4h4v4h-4zm4-4h8v4h-8z"></path>
+    <path class="strand-a" d="M0 2h8v4H0zm8 4h4v4H8zm4 2h4v4h-4zm4 2h4v4h-4zm4 4h8v4h-8z"></path>
+  </svg>
+  <span>{site.name}</span>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2-5);
+    font-family: var(--font-family-display);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-title-s);
+    letter-spacing: var(--font-tracking-title);
+    color: var(--text-heading);
+  }
+
+  svg {
+    flex: none;
+  }
+
+  .strand-a {
+    fill: var(--accent-primary);
+  }
+
+  .strand-b {
+    fill: var(--accent-underline);
+  }
+</style>

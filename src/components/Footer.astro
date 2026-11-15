@@ -1,0 +1,93 @@
+---
+/* Dusk footer: hairline, logo + statement, three columns in full sentences, bottom bar. */
+import { footer, links } from '../content/site';
+import Logo from './Logo.astro';
+---
+
+<footer class="footer">
+  <div class="ds-container">
+    <div class="top">
+      <Logo />
+      <p class="statement">{footer.statement}</p>
+    </div>
+
+    <div class="columns">
+      {footer.columns.map((column) => (
+        <div>
+          <h2>{column.title}</h2>
+          <p>{column.text}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="bottom">
+      <p>{footer.bottom}</p>
+      <a class="ds-link ds-link--quiet" href={links.organisation} rel="noopener noreferrer">
+        GitHub
+      </a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: var(--space-16) var(--space-8);
+    border-top: 1px solid var(--border-hairline);
+  }
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .statement {
+    font-size: var(--font-size-body-s);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-strong);
+  }
+
+  .columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-10);
+    margin-top: var(--space-12);
+  }
+
+  h2 {
+    margin-bottom: var(--space-3);
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-strong);
+  }
+
+  .columns p,
+  .bottom {
+    font-size: var(--font-size-label);
+    line-height: var(--font-line-height-relaxed);
+    color: var(--text-muted);
+  }
+
+  .bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border-hairline);
+  }
+
+  @media (min-width: 48rem) {
+    .top {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .columns {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-12);
+    }
+  }
+</style>

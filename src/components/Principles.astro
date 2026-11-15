@@ -1,0 +1,106 @@
+---
+/*
+ * The page's one "spectacular" section: a big figure on an inverse panel.
+ * Dusk: extrapolé — mirror of .ds-panel-light (radius 28) for a light canvas: the panel is dark ink,
+ * and the brand gradient sits along its bottom edge, below the text, so copy never overlaps it.
+ */
+import { principles } from '../content/site';
+---
+
+<section class="ds-section" id="principles">
+  <div class="ds-container">
+    <div class="panel">
+      <div class="figure">
+        <p class="ds-eyebrow">{principles.eyebrow}</p>
+        <p class="zero">
+          <span class="ds-display-xl">{principles.figure}</span>
+          <span class="zero-label">{principles.figureLabel}</span>
+        </p>
+      </div>
+
+      <div class="detail">
+        <h2 class="ds-display-m">{principles.title}</h2>
+        <ul>
+          {principles.items.map((item) => (
+            <li>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-12);
+    padding: var(--space-6);
+    /* keep every line of text above the gradient band (which is --space-32 tall) */
+    padding-bottom: calc(var(--space-32) + var(--space-6));
+    border-radius: var(--radius-2xl);
+    background: var(--gradient-horizon) var(--surface-inverse);
+    color: var(--text-on-inverse);
+  }
+
+  .ds-eyebrow,
+  li p {
+    color: var(--text-on-inverse-muted);
+  }
+
+  .ds-display-xl,
+  .ds-display-m,
+  h3 {
+    color: var(--text-on-inverse);
+  }
+
+  .zero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  .zero-label {
+    font-size: var(--font-size-body-l);
+    line-height: var(--font-line-height-relaxed);
+    color: var(--text-on-inverse-muted);
+  }
+
+  ul {
+    margin-top: var(--space-8);
+  }
+
+  li {
+    padding-block: var(--space-5);
+    border-top: 1px solid var(--border-hairline-inverse);
+  }
+
+  h3 {
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  li p {
+    margin-top: var(--space-1-5);
+    font-size: var(--font-size-body-s);
+    line-height: var(--font-line-height-relaxed);
+  }
+
+  @media (min-width: 40rem) {
+    .panel {
+      padding: var(--space-10);
+      padding-bottom: calc(var(--space-32) + var(--space-10));
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .panel {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-16);
+    }
+  }
+</style>

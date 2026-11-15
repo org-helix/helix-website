@@ -1,0 +1,123 @@
+/*
+ * Helix theme — the only place where colours are defined.
+ *
+ * Structure, type scale, spacing, radii and motion come from Dusk DS
+ * (./dusk/tokens.css, copied verbatim). This file re-points Dusk's semantic
+ * colour tokens at the Helix brand palette, on a light canvas.
+ *
+ * Contrast of every text/background pair declared here is enforced by
+ * tests/unit/theme.test.ts — change a value and the test tells you if it
+ * still passes WCAG AA.
+ */
+:root {
+  color-scheme: light;
+
+  /* ── Brand palette (source: Helix colour palette) ─────────────────────── */
+  --color-helix-red: #b24e30;
+  --color-helix-pale-amber: #faf6ed;
+  --color-helix-paper-white: #ffffff;
+  --color-helix-dusty-orange: #635242;
+  --color-helix-stone-gray: #918f89;
+  --color-helix-pale-orange: #ecd3cb;
+  /* Branding gradient stops 1 → 4 (stop 3 is Red) */
+  --color-helix-ink: #322921;
+  --color-helix-rust: #863b24;
+  --color-helix-blush: #dcafa2;
+
+  /* Ink at reduced opacity — the light-canvas equivalent of Dusk's white-aXX */
+  --color-helix-ink-a04: rgba(50, 41, 33, 0.04);
+  --color-helix-ink-a06: rgba(50, 41, 33, 0.06);
+  --color-helix-ink-a10: rgba(50, 41, 33, 0.1);
+  --color-helix-ink-a12: rgba(50, 41, 33, 0.12);
+  --color-helix-ink-a70: rgba(50, 41, 33, 0.7);
+  --color-helix-ink-a85: rgba(50, 41, 33, 0.85);
+  --color-helix-ink-a90: rgba(50, 41, 33, 0.9);
+  --color-helix-amber-a15: rgba(250, 246, 237, 0.15);
+  --color-helix-amber-a75: rgba(250, 246, 237, 0.75);
+  --color-helix-amber-a80: rgba(250, 246, 237, 0.8);
+
+  /* ── Semantic tokens (override Dusk) ──────────────────────────────────── */
+  --bg-canvas: var(--color-helix-pale-amber);
+  --bg-header-scrolled: var(--color-helix-amber-a80);
+
+  --surface-card: var(--color-helix-paper-white);
+  --surface-card-hover: var(--color-helix-pale-orange);
+  --surface-inverse: var(--color-helix-ink);
+
+  --fill-control: var(--color-helix-ink-a06);
+  --fill-control-hover: var(--color-helix-ink-a10);
+  --fill-neutral: var(--color-helix-ink-a06);
+  --fill-neutral-hover: var(--color-helix-ink-a12);
+
+  --text-default: var(--color-helix-ink);
+  --text-heading: var(--color-helix-ink);
+  --text-strong: var(--color-helix-ink-a90);
+  --text-body: var(--color-helix-ink-a85);
+  --text-secondary: var(--color-helix-dusty-orange);
+  --text-muted: var(--color-helix-dusty-orange);
+  --text-subtle: var(--color-helix-ink-a70);
+  --text-decorative: var(--color-helix-stone-gray); /* separators only — fails AA as text */
+  --text-on-accent: var(--color-helix-paper-white);
+  --text-on-inverse: var(--color-helix-pale-amber);
+  --text-on-inverse-muted: var(--color-helix-amber-a75);
+  --text-link: var(--color-helix-red);
+  --text-link-hover: var(--color-helix-rust);
+
+  --border-hairline: var(--color-helix-ink-a12);
+  --border-hairline-inverse: var(--color-helix-amber-a15);
+  --border-ring-card: var(--color-helix-ink-a10);
+
+  --accent-primary: var(--color-helix-red);
+  --accent-primary-hover: var(--color-helix-rust);
+  --accent-soft-bg: var(--color-helix-pale-orange);
+  --accent-underline: var(--color-helix-blush);
+  --accent-focus-ring: var(--color-helix-ink);
+  --accent-selection-bg: var(--color-helix-pale-orange);
+
+  --shadow-ring-card: 0 0 0 1px var(--border-ring-card);
+  --shadow-focus: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--accent-focus-ring);
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(
+    100deg,
+    var(--color-helix-ink),
+    var(--color-helix-rust) 40%,
+    var(--color-helix-red) 68%,
+    var(--color-helix-blush)
+  );
+  --gradient-text-accent: linear-gradient(90deg, var(--color-helix-rust), var(--color-helix-red));
+  /* Brand gradient laid on its side as a horizon: fixed height so text above it always sits on ink */
+  --gradient-horizon: linear-gradient(
+    to top,
+    var(--color-helix-blush),
+    var(--color-helix-red) var(--space-6),
+    var(--color-helix-rust) var(--space-16),
+    var(--color-helix-ink) var(--space-32)
+  );
+
+  /* ── Illustration (read by src/scripts/pixel-sunset.ts) ───────────────── */
+  /* Intermediate steps are 50 % / 45 % / 20 % mixes of ink and rust, rust and red. */
+  --color-sunset-sky-0: #322921;
+  --color-sunset-sky-1: #5c3223;
+  --color-sunset-sky-2: #863b24;
+  --color-sunset-sky-3: #9c452a;
+  --color-sunset-sky-4: #b24e30;
+  --color-sunset-glow: #dcafa2;
+  --color-sunset-sun-top: #faf6ed;
+  --color-sunset-sun-mid: #faf6ed;
+  --color-sunset-sun-low: #ecd3cb;
+  --color-sunset-sun-base: #dcafa2;
+  --color-sunset-hill-far: #583122;
+  --color-sunset-hill-mid: #432d22;
+  --color-sunset-hill-near: #322921;
+  --color-sunset-star-dim: #918f89;
+  --color-sunset-star-warm: #faf6ed;
+
+  /* ── Fonts: self-hosted variable builds (no third-party request) ──────── */
+  --font-family-display:
+    'Bricolage Grotesque Variable', 'Bricolage Grotesque', 'Geist Variable', ui-sans-serif,
+    system-ui, sans-serif;
+  --font-family-sans:
+    'Geist Variable', Geist, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial,
+    sans-serif;
+}

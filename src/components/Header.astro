@@ -1,0 +1,168 @@
+---
+import { Menu, X } from '@lucide/astro';
+import { links, nav } from '../content/site';
+import Button from './Button.astro';
+import Logo from './Logo.astro';
+---
+
+<header class="header" data-header>
+  <div class="ds-container inner">
+    <Logo />
+
+    <nav class="nav" aria-label="Main">
+      {nav.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="end">
+      <Button href={links.organisation} variant="neutral" size="s">
+        GitHub
+      </Button>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-menu-toggle
+      >
+        <Menu class="icon-open" size={16} stroke-width={2} aria-hidden="true" />
+        <X class="icon-close" size={16} stroke-width={2} aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+
+  <nav class="menu" id="mobile-menu" aria-label="Mobile" data-menu hidden>
+    <ul class="ds-container">
+      {nav.map((item) => (
+        <li>
+          <a href={item.href}>{item.label}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<script>
+  import { initHeader } from '../scripts/header';
+
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  if (header) initHeader(header);
+</script>
+
+<style>
+  .header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: var(--z-header);
+    height: var(--size-header);
+    transition:
+      background-color var(--motion-duration-header) var(--motion-easing-standard),
+      backdrop-filter var(--motion-duration-header) var(--motion-easing-standard);
+  }
+
+  .header.is-scrolled,
+  .header.is-open {
+    background: var(--bg-header-scrolled);
+    -webkit-backdrop-filter: blur(var(--blur-header));
+    backdrop-filter: blur(var(--blur-header));
+  }
+
+  .inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+  }
+
+  .nav {
+    display: none;
+    align-items: center;
+    gap: var(--space-5);
+    font-size: var(--font-size-label);
+    color: var(--text-secondary);
+  }
+
+  .nav a {
+    transition: color var(--motion-duration-fast) var(--motion-easing-standard);
+  }
+
+  .nav a:hover {
+    color: var(--text-heading);
+  }
+
+  .end {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-control-m);
+    height: var(--size-control-m);
+    border-radius: var(--radius-md);
+    background: var(--fill-neutral);
+    color: var(--text-heading);
+    transition: background-color var(--motion-duration-fast) var(--motion-easing-standard);
+  }
+
+  .menu-toggle:hover {
+    background: var(--fill-neutral-hover);
+  }
+
+  .menu-toggle:focus-visible {
+    border-radius: var(--radius-md);
+  }
+
+  .menu-toggle :global(.icon-close),
+  .menu-toggle[aria-expanded='true'] :global(.icon-open) {
+    display: none;
+  }
+
+  .menu-toggle[aria-expanded='true'] :global(.icon-close) {
+    display: block;
+  }
+
+  /* Full-height panel under the header (Dusk: extrapolé, as documented in components/navigation.md) */
+  .menu {
+    position: absolute;
+    inset: var(--size-header) 0 auto;
+    height: calc(100svh - var(--size-header));
+    padding-block: var(--space-6);
+    overflow-y: auto;
+    background: var(--bg-canvas);
+  }
+
+  .menu li {
+    border-bottom: 1px solid var(--border-hairline);
+  }
+
+  .menu a {
+    display: block;
+    padding-block: var(--space-4);
+    font-size: var(--font-size-body-l);
+    color: var(--text-strong);
+  }
+
+  @media (min-width: 64rem) {
+    .nav {
+      display: flex;
+    }
+
+    .menu-toggle,
+    .menu {
+      display: none;
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .nav {
+      gap: var(--space-8);
+    }
+  }
+</style>

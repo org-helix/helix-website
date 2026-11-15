@@ -1,0 +1,8 @@
+dist
+.astro
+node_modules
+playwright-report
+test-results
+package-lock.json
+# Copied verbatim from Dusk DS — never reformatted here
+src/styles/dusk

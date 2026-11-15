@@ -1,0 +1,28 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'neutral';
+  size?: 'xl' | 'l' | 's';
+  class?: string;
+}
+
+const { href, variant = 'primary', size = 'l', class: className } = Astro.props;
+const external = /^https?:\/\//.test(href);
+const externalAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+<a
+  class:list={['ds-btn', `ds-btn--${variant}`, `ds-btn--${size}`, className]}
+  href={href}
+  {...externalAttrs}
+>
+  <slot />
+  {external && (
+    <>
+      <ArrowUpRight size={14} stroke-width={2} aria-hidden="true" />
+      <span class="ds-sr-only">(opens in a new tab)</span>
+    </>
+  )}
+</a>

@@ -1,0 +1,30 @@
+---
+/* Dusk section rhythm: eyebrow → (20) → H2 display-m → (16) → copy → (48) → content. */
+interface Props {
+  eyebrow: string;
+  title: string;
+  copy?: string;
+}
+
+const { eyebrow, title, copy } = Astro.props;
+---
+
+<header class="intro">
+  <p class="ds-eyebrow">{eyebrow}</p>
+  <h2 class="ds-display-m">{title}</h2>
+  {copy && <p class="ds-copy">{copy}</p>}
+</header>
+
+<style>
+  .intro {
+    margin-bottom: var(--space-12);
+  }
+
+  h2 {
+    margin-top: var(--space-5);
+  }
+
+  .ds-copy {
+    margin-top: var(--space-4);
+  }
+</style>
