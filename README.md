@@ -4,24 +4,40 @@ Website for [Helix](https://github.com/org-helix): public-good software, free, o
 
 A static site built with [Astro](https://astro.build) and TypeScript. It ships HTML, CSS and two small scripts, with self-hosted fonts: no cookies, no analytics, no third-party requests.
 
+![Helix home page on desktop: the headline "Software for those tech leaves behind." beside a pixel-art sunset](docs/screenshots/desktop.png)
+
+<p align="center">
+  <img src="docs/screenshots/mobile.png" width="260" alt="Home page on a phone, with full-width buttons">
+  <img src="docs/screenshots/mobile-principles.png" width="260" alt="Principles panel on a phone: zero trackers, ads or lock-in">
+  <img src="docs/screenshots/mobile-menu.png" width="260" alt="Mobile menu open">
+</p>
+
+<details>
+<summary>Full page on desktop</summary>
+
+![The whole Helix home page on desktop, from the hero to the footer](docs/screenshots/desktop-full.png)
+
+</details>
+
 ## Commands
 
 Requires Node 22.23.4 or newer (CI uses the version in `.nvmrc`).
 
-| Command            | What it does                                                     |
-| ------------------ | ---------------------------------------------------------------- |
-| `npm install`      | Install dependencies                                             |
-| `npm run dev`      | Start the dev server on <http://localhost:4321>                  |
-| `npm run build`    | Build the static site into `dist/`                               |
-| `npm run preview`  | Serve the built site locally                                     |
-| `npm run check`    | Type-check `.astro` and `.ts` files                              |
-| `npm run lint`     | ESLint (TypeScript, Astro, accessibility rules)                  |
-| `npm run format`   | Format with Prettier                                             |
-| `npm test`         | Unit tests (Vitest)                                              |
-| `npm run test:e2e` | Browser and accessibility tests (Playwright + axe), on the build |
-| `npm run verify`   | Everything CI runs, in order                                     |
+| Command               | What it does                                                     |
+| --------------------- | ---------------------------------------------------------------- |
+| `npm install`         | Install dependencies                                             |
+| `npm run dev`         | Start the dev server on <http://localhost:4321>                  |
+| `npm run build`       | Build the static site into `dist/`                               |
+| `npm run preview`     | Serve the built site locally                                     |
+| `npm run check`       | Type-check `.astro` and `.ts` files                              |
+| `npm run lint`        | ESLint (TypeScript, Astro, accessibility rules)                  |
+| `npm run format`      | Format with Prettier                                             |
+| `npm test`            | Unit tests (Vitest)                                              |
+| `npm run test:e2e`    | Browser and accessibility tests (Playwright + axe), on the build |
+| `npm run verify`      | Everything CI runs, in order                                     |
+| `npm run screenshots` | Retake the README screenshots from the build                     |
 
-Before the first `npm run test:e2e`, install the browser once: `npx playwright install chromium`.
+Before the first `npm run test:e2e` or `npm run screenshots`, install the browser once: `npx playwright install chromium`.
 
 ## Where things live
 
@@ -39,6 +55,8 @@ src/
 tests/
   unit/                Palette, contrast, content rules, colour helpers.
   e2e/                 Rendering, navigation, privacy promise, accessibility.
+scripts/screenshots.mjs  Takes the README screenshots (desktop 1440 × 900, phone 390 × 844).
+docs/screenshots/      The images shown above. Retake them after a visual change.
 ```
 
 ## Design
