@@ -57,6 +57,7 @@ src/
     theme.css          Helix palette and semantic colour tokens. The only place colours are defined.
     global.css         Reset and shared .ds-* classes.
   components/          One file per section, plus Button, Icon, Logo, SectionIntro.
+  assets/              Images processed at build time (netlix.png → responsive WebP).
   scripts/             Header behaviour and the pixel-art illustration.
   lib/color.ts         Colour parsing and WCAG contrast helpers.
   pages/               index and 404.

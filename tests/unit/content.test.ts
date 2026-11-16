@@ -8,6 +8,7 @@ import {
   links,
   nav,
   principles,
+  projects,
   site,
 } from '../../src/content/site';
 
@@ -42,11 +43,35 @@ describe('site content', () => {
   it('has no empty copy', () => {
     const texts = [
       ...focus.items.flatMap((item) => [item.title, item.text]),
+      projects.netlix.tagline,
+      projects.netlix.text,
+      projects.netlix.image.alt,
+      projects.netlix.image.caption,
+      projects.netlix.installNote,
+      ...projects.netlix.downloads.flatMap((d) => [d.system, d.kind, d.detail]),
+      ...projects.netlix.features.flatMap((item) => [item.title, item.text]),
       ...principles.items.flatMap((item) => [item.title, item.text]),
       ...audience.items.flatMap((item) => [item.title, item.text, item.aside]),
       ...community.cards.flatMap((card) => [card.title, card.text]),
       ...footer.columns.flatMap((column) => [column.title, column.text]),
     ];
     for (const text of texts) expect(text.trim()).not.toBe('');
+  });
+
+  it('names a released netlix version and links to its repository', () => {
+    expect(projects.netlix.version).toMatch(/^\d+\.\d+\.\d+$/);
+    expect(projects.netlix.source.href).toBe(links.netlix);
+  });
+
+  it('offers one netlix download per system, from the latest release', () => {
+    const systems = projects.netlix.downloads.map((d) => d.system);
+    expect(systems).toEqual([...projects.netlix.platforms]);
+    for (const d of projects.netlix.downloads) {
+      // No version in the file name: the link must keep working after each release.
+      expect(d.href).toMatch(
+        /^https:\/\/github\.com\/org-helix\/netlix\/releases\/latest\/download\/netlix-[a-z]+[-.][A-Za-z.-]+$/,
+      );
+      expect(d.href).not.toMatch(/\d+\.\d+/);
+    }
   });
 });

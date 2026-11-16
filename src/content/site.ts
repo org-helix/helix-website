@@ -10,6 +10,11 @@ export const links = {
   organisation: 'https://github.com/org-helix',
   repositories: 'https://github.com/orgs/org-helix/repositories',
   contributing: 'https://github.com/org-helix/.github/issues',
+  netlix: 'https://github.com/org-helix/netlix',
+  netlixReleases: 'https://github.com/org-helix/netlix/releases/latest',
+  // Release files have no version in their name, so this always serves the newest.
+  netlixFiles: 'https://github.com/org-helix/netlix/releases/latest/download',
+  netlixInstallHelp: 'https://github.com/org-helix/netlix#download',
 } as const;
 
 export const site = {
@@ -21,6 +26,7 @@ export const site = {
 
 export const nav = [
   { label: 'What we build', href: '#focus' },
+  { label: 'Projects', href: '#projects' },
   { label: 'Principles', href: '#principles' },
   { label: 'Who it’s for', href: '#audience' },
   { label: 'Get involved', href: '#community' },
@@ -61,6 +67,67 @@ export const focus = {
   string,
   unknown
 >;
+
+export const projects = {
+  eyebrow: 'Projects',
+  title: 'First out: a network lab for the classroom.',
+  copy: 'Each Helix project follows the same rules: free, runs offline, no account. Here is the first one.',
+  netlix: {
+    name: 'netlix',
+    // Update with each release (see github.com/org-helix/netlix/releases).
+    version: '0.3.0',
+    tagline: 'Learn networking without a licence or an account.',
+    text: 'A network simulator in the spirit of Packet Tracer. Place PCs, switches and routers, give them addresses, then send a ping and watch every frame cross the cables.',
+    platforms: ['Windows', 'macOS', 'Linux'],
+    downloadsLabel: 'Download, one file per system',
+    downloads: [
+      {
+        system: 'Windows',
+        kind: 'Installer',
+        detail: 'Windows 10 and 11',
+        href: `${links.netlixFiles}/netlix-windows-setup.exe`,
+      },
+      {
+        system: 'macOS',
+        kind: 'Disk image',
+        detail: 'macOS 11 or later, Apple Silicon and Intel',
+        href: `${links.netlixFiles}/netlix-macos.dmg`,
+      },
+      {
+        system: 'Linux',
+        kind: 'AppImage',
+        detail: 'Most x86-64 distributions',
+        href: `${links.netlixFiles}/netlix-linux.AppImage`,
+      },
+    ],
+    installNote: 'Not code-signed yet, so Windows and macOS ask for confirmation the first time.',
+    installHelp: { label: 'How to install', href: links.netlixInstallHelp },
+    source: { label: 'Read the source', href: links.netlix },
+    image: {
+      alt: 'netlix with its office example: two PCs and a server on two switches, a router in the middle and an Internet cloud above it, with the ping bar below.',
+      caption:
+        'netlix in French. On first launch you choose French or English, and a dark or light theme.',
+    },
+    features: [
+      {
+        title: 'Every frame, explained',
+        text: 'ARP, switching and routing are simulated frame by frame, and the log says why each frame was sent.',
+      },
+      {
+        title: 'Step by step',
+        text: 'Stop after each step to see the frames on the wire, what each device did, and its ARP cache or MAC table.',
+      },
+      {
+        title: 'Clear errors',
+        text: 'A failed ping says why: missing gateway, no route, no ARP reply, expired TTL or a broadcast storm.',
+      },
+      {
+        title: 'Installs in a minute',
+        text: 'A native app for Windows, macOS and Linux, from a single file. No sign-in, no connection needed.',
+      },
+    ],
+  },
+} as const;
 
 export const principles = {
   eyebrow: 'Principles',

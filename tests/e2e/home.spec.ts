@@ -1,6 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
-import { hero, nav, site } from '../../src/content/site';
+import { hero, nav, projects, site } from '../../src/content/site';
 
 test.beforeEach(async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -54,6 +54,23 @@ test('has no horizontal scroll', async ({ page }) => {
 test('paints the hero illustration', async ({ page }) => {
   await page.goto('./');
   await expect(page.locator('canvas[data-sunset]')).toHaveClass(/is-ready/);
+});
+
+test('presents netlix with a screenshot and a download link', async ({ page }) => {
+  await page.goto('./');
+  const section = page.locator('#projects');
+  await expect(section.getByRole('heading', { level: 3, name: 'netlix' })).toBeVisible();
+
+  const shot = section.getByRole('img', { name: projects.netlix.image.alt });
+  await shot.scrollIntoViewIfNeeded();
+  await expect(shot).toHaveJSProperty('complete', true);
+  expect(await shot.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+
+  for (const download of projects.netlix.downloads) {
+    await expect(
+      section.getByRole('link', { name: new RegExp(`^${download.system} ${download.kind}`) }),
+    ).toHaveAttribute('href', download.href);
+  }
 });
 
 test('header gains a background once the page is scrolled', async ({ page }) => {

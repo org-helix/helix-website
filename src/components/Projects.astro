@@ -1,0 +1,262 @@
+---
+/*
+ * Featured project: summary + screenshot side by side, then its features as a
+ * hairline list (same rhythm as the Dusk feature grid, without icons).
+ * Dusk: extrapolé — product block with a media card (radius 16 + 1px ring, no shadow).
+ */
+import { ArrowUpRight, Download } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import netlixShot from '../assets/netlix.png';
+import { projects } from '../content/site';
+import SectionIntro from './SectionIntro.astro';
+
+const { netlix } = projects;
+---
+
+<section class="ds-section" id="projects">
+  <div class="ds-container">
+    <SectionIntro eyebrow={projects.eyebrow} title={projects.title} copy={projects.copy} />
+
+    <article class="project" aria-labelledby="netlix-name">
+      <div class="summary">
+        <p class="meta">
+          <span>Version {netlix.version}</span>
+          {netlix.platforms.map((platform) => (
+            <>
+              <span class="ds-sep" aria-hidden="true">
+                ·
+              </span>
+              <span>{platform}</span>
+            </>
+          ))}
+        </p>
+        <h3 class="name" id="netlix-name">
+          {netlix.name}
+        </h3>
+        <p class="tagline">{netlix.tagline}</p>
+        <p class="ds-copy">{netlix.text}</p>
+        <div class="downloads">
+          <p class="downloads-label">{netlix.downloadsLabel}</p>
+          <ul class="download-list">
+            {netlix.downloads.map((d) => (
+              <li>
+                <a class="download" href={d.href}>
+                  <Download size={16} stroke-width={2} aria-hidden="true" />
+                  <span class="system">{d.system}</span>
+                  <span class="kind">{d.kind}</span>
+                  <span class="ds-sr-only">, {d.detail}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p class="note">
+            {netlix.installNote}{' '}
+            <a
+              class="ds-link"
+              href={netlix.installHelp.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {netlix.installHelp.label}
+              <span class="ds-sr-only"> (opens in a new tab)</span>
+            </a>
+          </p>
+        </div>
+        <a
+          class="ds-link source"
+          href={netlix.source.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {netlix.source.label}
+          <ArrowUpRight size={14} stroke-width={2} aria-hidden="true" />
+          <span class="ds-sr-only">(opens in a new tab)</span>
+        </a>
+      </div>
+
+      <figure class="shot">
+        <div class="frame">
+          <Image
+            src={netlixShot}
+            alt={netlix.image.alt}
+            widths={[640, 960, 1280, netlixShot.width]}
+            sizes="(min-width: 64rem) 42rem, calc(100vw - 2.5rem)"
+            format="webp"
+          />
+        </div>
+        <figcaption>{netlix.image.caption}</figcaption>
+      </figure>
+
+      <ul class="features">
+        {netlix.features.map((feature) => (
+          <li>
+            <h4>{feature.title}</h4>
+            <p>{feature.text}</p>
+          </li>
+        ))}
+      </ul>
+    </article>
+  </div>
+</section>
+
+<style>
+  .project {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-10);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    font-size: var(--font-size-label);
+    color: var(--text-subtle);
+  }
+
+  .name {
+    margin-top: var(--space-4);
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-display-s);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.1;
+    color: var(--text-heading);
+  }
+
+  .tagline {
+    margin-top: var(--space-3);
+    font-size: var(--font-size-body-l);
+    line-height: var(--font-line-height-relaxed);
+    color: var(--text-body);
+    text-wrap: balance;
+  }
+
+  .ds-copy {
+    margin-top: var(--space-4);
+  }
+
+  .downloads {
+    margin-top: var(--space-8);
+  }
+
+  .downloads-label {
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .download-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+
+  .download {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    height: 100%;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--fill-neutral);
+    color: var(--text-heading);
+    transition: background-color var(--motion-duration-fast) var(--motion-easing-standard);
+  }
+
+  .download:hover {
+    background: var(--fill-neutral-hover);
+  }
+
+  .download:focus-visible {
+    border-radius: var(--radius-md);
+  }
+
+  .system {
+    font-size: var(--font-size-body-s);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .kind {
+    font-size: var(--font-size-caption);
+    color: var(--text-muted);
+  }
+
+  .note {
+    margin-top: var(--space-3);
+    font-size: var(--font-size-label);
+    line-height: var(--font-line-height-relaxed);
+    color: var(--text-muted);
+  }
+
+  .source {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1-5);
+    margin-top: var(--space-6);
+    font-size: var(--font-size-body-s);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .frame {
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    background: var(--surface-inverse);
+    box-shadow: var(--shadow-ring-card);
+  }
+
+  .frame :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  figcaption {
+    margin-top: var(--space-3);
+    font-size: var(--font-size-label);
+    line-height: var(--font-line-height-relaxed);
+    color: var(--text-muted);
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 var(--space-8);
+  }
+
+  .features li {
+    padding-block: var(--space-5);
+    border-top: 1px solid var(--border-hairline);
+  }
+
+  h4 {
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-heading);
+  }
+
+  .features p {
+    margin-top: var(--space-1-5);
+    font-size: var(--font-size-body-s);
+    line-height: var(--font-line-height-relaxed);
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .features {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .project {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      gap: var(--space-12) var(--space-16);
+      align-items: center;
+    }
+
+    .features {
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>
